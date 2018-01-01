@@ -17,9 +17,10 @@ function GatDirection(dSetting) {
 }
 
 function Draw(num) {
-    var cvs = document.getElementById('drawCanvas');
-    var cvs2d = cvs.getContext("2d");
-    cvs2d.lineWidth = 1;
+    var drawCanvas = document.getElementById('drawCanvas');
+    var drawCanvas2D = drawCanvas.getContext("2d");
+    drawCanvas2D.lineWidth = 1;
+    Drawtest(drawCanvas2D);
     GetAllRadius(num);
     var bx = beginX;
     var by = BeginY;
@@ -27,6 +28,7 @@ function Draw(num) {
     var ey = 0;
     var direction = 0;
     var br = 0;
+    var Reverse = 1;
     //var oldLen = 0;
     var newLen = 0;
     for (i = 1; i < num; i++) {
@@ -35,42 +37,42 @@ function Draw(num) {
         br = direction % 4;
         switch (br) {
             case 0:
-                ex = bx + newLen;
+                ex = bx + newLen * Reverse;
                 ey = by;
-                DrawLine(cvs2d, bx, by, ex, ey, "blue");
-                DrawArc(cvs2d, ex, ey, newLen, br, "blue")
+                DrawLine(drawCanvas2D, bx, by, ex, ey, "blue");
+                DrawArc(drawCanvas2D, ex, ey, newLen, br, Reverse, "blue")
                 bx = ex;
-                by = ey - newLen;
+                by = ey - newLen * Reverse;
                 break;
             case 1:
-                ey = by + newLen;
+                ey = by + newLen * Reverse;
                 ex = bx;
-                DrawLine(cvs2d, bx, by, ex, ey, "red");
-                DrawArc(cvs2d, ex, ey, newLen, br, "red")
+                DrawLine(drawCanvas2D, bx, by, ex, ey, "red");
+                DrawArc(drawCanvas2D, ex, ey, newLen, br, Reverse, "red")
                 by = ey;
-                bx = ex + newLen;
+                bx = ex + newLen * Reverse;
                 break;
             case 2:
-                ex = bx - newLen;
+                ex = bx - newLen * Reverse;
                 ey = by;
-                DrawLine(cvs2d, bx, by, ex, ey, "green");
-                DrawArc(cvs2d, ex, ey, newLen, br, "green")
+                DrawLine(drawCanvas2D, bx, by, ex, ey, "green");
+                DrawArc(drawCanvas2D, ex, ey, newLen, br, Reverse, "green")
                 bx = ex;
-                by = ey + newLen;
+                by = ey + newLen * Reverse;
                 break;
             case 3:
-                ey = by - newLen;
+                ey = by - newLen * Reverse;
                 ex = bx;
-                DrawLine(cvs2d, bx, by, ex, ey, "yellow");
-                DrawArc(cvs2d, ex, ey, newLen, br, "yellow")
+                DrawLine(drawCanvas2D, bx, by, ex, ey, "yellow");
+                DrawArc(drawCanvas2D, ex, ey, newLen, br, Reverse, "yellow")
                 by = ey;
-                bx = ex - newLen;
+                bx = ex - newLen * Reverse;
                 break;
         }
         direction++;
 
     }
-    cvs2d.closePath();
+    drawCanvas2D.closePath();
 }
 
 function DrawLine(ctx, x0, y0, x1, y1, color) {
@@ -81,10 +83,20 @@ function DrawLine(ctx, x0, y0, x1, y1, color) {
     ctx.stroke(); // 进行绘制
 }
 
-function DrawArc(ctx, x, y, r, br, color) {
+function DrawArc(ctx, x, y, r, br, reverse, color) {
     ctx.beginPath();
     ctx.strokeStyle = color;
-    ctx.arc(x, y, r, (br / 2.0 - 0.5) * Math.PI, (br / 2.0 + 1) * Math.PI, true);
+    //ctx.arc(x, y, r, (br / 2.0 - 0.5) * Math.PI, (br / 2.0 + 1) * Math.PI, reverse);
+    //ctx.arc(x, y, r, (br / 2.0 + 1) * Math.PI, (br / 2.0 + 1 + 0.5) * Math.PI, (reverse != 1));
+    ctx.arc(x, y, r, (br / 2.0 + 1 * reverse) * Math.PI, (br / 2.0 + (1 + 0.5) * reverse) * Math.PI, (reverse != 1));
+    //console.trace("start:" + (br / 2.0 - 0.5) + "  end:" + (br / 2.0 + 1) + "  reverse:" + reverse);
     ctx.stroke(); // 进行绘制
+}
+
+function Drawtest(ctx) {
+    ctx.beginPath();
+    ctx.strokeStyle = "pink";
+    ctx.arc(50, 50, 50, 0, Math.PI, true);
+    ctx.stroke();
 }
 Draw(8);

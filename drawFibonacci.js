@@ -12,11 +12,11 @@ function GetAllRadius(num) {
     }
 }
 
-function GatDirection(dSetting) {
+function GetDirection(dSetting) {
 
 }
 
-function Draw(num) {
+function Draw(num, direction, Counterclockwise) {
     var drawCanvas = document.getElementById('drawCanvas');
     var drawCanvas2D = drawCanvas.getContext("2d");
     drawCanvas2D.lineWidth = 1;
@@ -105,4 +105,4 @@ function Drawtest(ctx) {
     ctx.arc(50, 50, 50, 0, Math.PI, true);
     ctx.stroke();
 }
-Draw(8);
+Draw(8, 0, false);

@@ -6,8 +6,37 @@
 </head>
 
 <body>
-    <canvas id="drawCanvas" style="width:1000px;vertical-align:middle;"></canvas>
+    <div>
+        元素数量
+        <input id="Num" name="Num" value="8" type="number" />
+        方向
+        <select id="Direction" name="Direction">
+            <option value="3">上</option>
+            <option value="2">左</option>
+            <option value="1">下</option>      
+            <option value="0">右</option>            
+        </select>
+        是否逆时针
+        <select id="Counterclockwise" name="Counterclockwise">
+            <option value="false">否</option>      
+            <option value="true">是</option> 
+        </select>
+        <input id="Draw" name="Draw" type="button" value="画"></input>
+    </div>
+    <div>
+        <canvas id="drawCanvas" style="width:1000px;vertical-align:middle;"></canvas>
+    </div>
     <script src="drawFibonacci.js"></script>
+    <script>
+        document.getElementById('Draw').addEventListener('click', function() {
+            var num = document.getElementById("Num").value;
+            var direction = document.getElementById("Direction").value;
+            var counterclockwise = document.getElementById("Counterclockwise").value;
+            ClearAll();
+            Draw(num, direction, counterclockwise);
+        }, false);
+
+    </script>
 </body>
 
 </html>

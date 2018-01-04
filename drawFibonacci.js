@@ -105,4 +105,10 @@ function Drawtest(ctx) {
     ctx.arc(50, 50, 50, 0, Math.PI, true);
     ctx.stroke();
 }
-Draw(8, 0, false);
+function ClearAll()
+{
+    var drawCanvas = document.getElementById('drawCanvas');
+    var drawCanvas2D = drawCanvas.getContext("2d");
+    drawCanvas2D.clearRect(0, 0, drawCanvas.width, drawCanvas.height);
+}
+//Draw(8, 0, false);
